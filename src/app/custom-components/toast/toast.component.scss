@@ -1,0 +1,40 @@
+@import "../../../scss/colors.scss";
+
+.bi-check-circle,
+.bi-x-circle-fill {
+  margin-top: 12px;
+}
+
+.bi-x-circle-fill {
+  color: $dark-red;
+}
+
+.btn-close {
+  padding: 0;
+  margin-top: 14px;
+  color: $toaster-close-button;
+  opacity: 0.8;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.toast-body {
+  line-height: 1.8;
+}
+
+.success-toast {
+  background-color: $success-toast-bg;
+  border-color: $success-toast-bdr;
+}
+
+.error-toast {
+  background-color: $error-toast-bg;
+  border-color: $error-toast-bdr;
+}
+
+.toast {
+  width: 550px !important;
+  --bs-toast-box-shadow: none;
+}

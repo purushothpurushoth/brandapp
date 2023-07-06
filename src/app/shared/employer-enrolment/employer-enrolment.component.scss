@@ -1,0 +1,78 @@
+@import "./../../../scss/colors.scss";
+
+
+.slogan {
+  font-weight: 800;
+  font-size: 60px;
+  line-height: 1;
+  text-align: center;
+  letter-spacing: -2px;
+  color: $font-black;
+}
+
+.slogan-desc {
+  font-size: 22px;
+  font-weight: 400;
+  color: $font-grey;
+  line-height: 1.5;
+  letter-spacing: -1px;
+  max-width: 675px;
+}
+
+.panel-container {
+  background: $white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px $box-shadow-black;
+
+  .left-container {
+    .upload-img {
+      background: $light-blue;
+      padding: 3px 5px 2px 5px;
+      i {
+        color: $icon-blue;
+      }
+    }
+    .download-btn{
+        label {
+          padding: 5px 10px 5px 30px;
+          color: $icon-blue;
+          &:hover {
+            background-color: $icon-blue;
+            color: white;
+          }
+        }
+        .bi-download {
+          top: 5px;
+          left: 20px;
+          &:hover {
+              color: $white !important;
+          }
+        }
+        &:hover .bi-download {
+            color: $white;
+        }
+    }
+
+
+    .drag-drop-container {
+      .drag-drop-section-label {
+        display: block !important;
+        margin: 10px 30px 50px 30px;
+        user-select: none;
+        background-color: $bg-grey;
+        border: 1px dashed $icon-blue;
+
+        i {
+          background-color: $white !important;
+          color: $icon-blue;
+          text-shadow: 1px 1px;
+          border-radius: 50%;
+        }
+
+        .upload-link span {
+          color: $icon-blue !important;
+        }
+      }
+    }
+  }
+}

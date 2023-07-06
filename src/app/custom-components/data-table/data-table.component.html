@@ -1,0 +1,101 @@
+<div *ngIf="!isStaticData" class="d-flex justify-content-between align-items-end" [ngClass]="{'actions-container': selectedList.length}">
+    <div class="d-flex">
+        <div class="search-box position-relative mb-3">
+            <i class="bi bi-search position-absolute ms-1"></i>
+            <input type="text" class="form-control fs-13 pt-2" [(ngModel)]="searchText" (keyup)="onSearchInput()" [placeholder]="detail.placeholder"/>
+        </div>
+        <div *ngIf="selectedList.length">
+            <div class="d-inline-block clear-btn position-relative mb-3 ms-2">
+                <i class="bi bi-x-lg position-absolute fs-16"></i>
+                <label class="btn btn-outline-secondary fs-13" (click)="clearSelection()">Clear Selection</label>
+            </div>
+            <div class="d-inline-block remove-btn position-relative mb-3 ms-2">
+                <i class="bi bi-trash position-absolute fs-16"></i>
+                <label class="btn btn-outline-secondary fs-13" (click)="removeData()">
+                    Remove {{isAllDataSelected ? detail.searchTotalCount : selectedList.length}} {{detail.listName}}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="total-info f-grey fs-12 mb-3">
+        <span>Total: </span>{{detail.searchTotalCount}}<span> {{detail.listName}}</span>
+    </div>
+</div>
+<div class="table-container br-10" [ngClass]="{'static-data-table': isStaticData}">
+    <table class="w-100 fs-12">
+        <thead class="f-bold">
+            <tr>
+                <th *ngIf="!isStaticData" class="checkbox-cell">
+                    <input type="checkbox" class="ms-1 fs-14 cursor-pointer form-check-input" [checked]="isAllSelected" (change)="selectAll($event)" [disabled]="isTableLoading || !data.length">
+                </th>
+                <th *ngFor="let column of columns" [ngStyle]="{'width' : column.width + '%'}" class="text-center">
+                    {{ column.title }}<i *ngIf="column?.tooltipInfo" class="bi bi-info-circle ps-2" data-bs-toggle="tooltip" [attr.data-bs-title]="column.tooltipInfo"></i><br><span *ngIf="column?.unit" class="ps-2 color-grey">{{column?.unit}}</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngIf="!isTableLoading && data.length">
+                <tr *ngIf="isAllSelected && !isAllDataSelected">
+                    <td class="text-center" colspan="10">
+                        All {{data.length}} {{detail.listName}} on this page are selected.
+                        <span *ngIf="data.length > 1 && detail.searchTotalCount > data.length" class="ps-1 select-all-link cursor-pointer fw-500" (click)="isAllDataSelected = true">
+                            Select all {{detail.searchTotalCount}} {{detail.listName}} in the list
+                        </span> 
+                    </td>
+                </tr>
+                <tr *ngIf="isAllDataSelected">
+                    <td class="text-center" colspan="10">
+                        All {{detail.searchTotalCount}} {{detail.listName}} in the list are selected.
+                    </td>
+                </tr>
+                <tr *ngFor="let item of data | paginate: {id: paginationId, itemsPerPage: pageSize, currentPage: page, totalItems: detail.searchTotalCount}"
+                 [ngClass]="{'selected-row' : item.isSelected}">
+                    <td *ngIf="!isStaticData" class="checkbox-cell">
+                        <input type="checkbox" class="ms-1 fs-14 cursor-pointer form-check-input" [(ngModel)]="item.isSelected" (change)="updateSelectedList($event, item)">
+                    </td>
+                    <td *ngFor="let column of columns" [ngClass]="{'fw-500': column.isBold, 'f-grey': column.isGrey}" [ngStyle]="{'width' : column.width + '%'}">
+                        {{item[column.key]}}
+                    </td>
+                </tr>
+                <tr *ngIf="isDataEntryEnable && !isStaticData">
+                    <td>
+                        <div class="add-column-entry rounded d-flex justify-content-center align-items-center border-green"  (click)="emitDataEntry()">
+                            <i class="bi bi-plus fs-28 color-green cursor-pointer"></i>
+                        </div>
+                    </td>
+                    <td *ngFor="let column of columns;" [ngStyle]="{'width' : column.width + '%'}">
+                        <input type="text" [(ngModel)]="columnEntryForm[column.key]" class="w-90 p-2 br-4 border-blue me-2" [class.input-error]="isformSubmitted && columnEntryForm[column.key] === ''"/>
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-container *ngIf="!isTableLoading && !data.length">
+                <tr>
+                    <td class="text-center" colspan="10">
+                        No data found!
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-container *ngIf="isTableLoading">
+                <tr *ngFor="let item of skeletonLoaderList">
+                    <td class="checkbox-cell">
+                        <input type="checkbox" class="ms-1 mt-1 cursor-pointer" disabled>
+                    </td>
+                    <td *ngFor="let column of columns" [ngStyle]="{'width' : column.width + '%'}">
+                        <div class="skeleton-loader br-4"></div>
+                    </td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>
+<div *ngIf="data.length" class="text-end fs-12" [ngClass]="isStaticData ? 'mt-3' : 'mt-5'">
+    <span>{{pageInfo}}</span>
+    <pagination-controls 
+        [id]="paginationId"
+        (pageChange)="page = $event; loadDataOnPagination()" 
+        previousLabel="Prev" 
+        [maxSize]="5"
+        class="d-inline-block"
+    >
+    </pagination-controls>
+</div>

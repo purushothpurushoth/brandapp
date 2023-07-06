@@ -1,0 +1,108 @@
+@import "../../../scss/colors.scss";
+
+.btn-close {
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.preview-container {
+  .rotate-button {
+    border: 1px solid $border-grey;
+    border-radius: 50%;
+    padding: 0.4rem 0.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+
+    &:hover {
+      background: $border-grey;
+    }
+  }
+
+  .button-cancel {
+    width: 88px;
+    height: 44px;
+    border-color: $submit-button-color;
+    color: $submit-button-color;
+  }
+
+  .button-submit {
+    width: 94px;
+    height: 44px;
+    border-color: $submit-button-color;
+  }
+
+  .cropper-container {
+    width: 554px;
+    height: 530px;
+  }
+}
+
+.upload-loader-container {
+
+  .spinner-border {
+    --bs-spinner-width: 6rem;
+    --bs-spinner-height: 6rem;
+    --bs-spinner-border-width: 0.5rem;
+    color: $loader-blue;
+  }
+
+  .spinner-context {
+    top: -60px;
+  }
+
+  .cancel-btn {
+
+    label {
+      border: 1px solid $icon-blue;
+      color: $icon-blue;
+    }
+
+    .btn:hover {
+      background-color: $bg-grey !important;
+    }
+  }
+}
+
+.error-table-heading{
+  background-color: $error-toast-list-heading;
+}
+
+.error-data {
+  max-height: 152px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  .error-field {
+    color: $dark-red;
+  }
+}
+
+
+.bottom {
+  height: 6px;
+}
+
+.border-grey {
+  border-color: $border-grey !important;
+}
+
+.lh-26 {
+  line-height: 26px;
+}
+
+.filename-container {
+  padding: 12px 0 12px 2px;
+}
+
+/* **************************** MEDIA QUERY *************************************************************/
+
+@media (min-width: 700px) and (max-width: 1020px) {
+  iframe {
+    height: 350px;
+  }
+}

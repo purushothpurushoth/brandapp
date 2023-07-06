@@ -1,0 +1,6 @@
+<div *ngIf="currentToasts?.length" class="toaster position-fixed top-0 start-50 translate-middle-x pt-2 m-16">
+  <div *ngFor="let toast of currentToasts; index as i" class="mb-2">
+    <glasstop-toast [type]="toast.type" [message]="toast.message" (disposeEvent)="dispose(i)">
+    </glasstop-toast>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<div #toastElement class="toast align-items-center toast fade success-toast" role="alert" aria-live="assertive" aria-atomic="true"
+    [ngClass]="{'error-toast': type === EVENT_TYPE.ERROR}">
+    <div class="d-flex">
+        <i class="bi fs-12 ps-3" [ngClass]="{'bi-check-circle': type === EVENT_TYPE.SUCCESS, 'bi-x-circle-fill': type === EVENT_TYPE.ERROR}"></i>
+        <div class="toast-body fs-12 w-100" [innerHTML]="message">
+        </div>
+        <button type="button" class="btn-close me-3 fs-12 close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+</div>

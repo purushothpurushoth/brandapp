@@ -1,0 +1,83 @@
+<ng-container [ngSwitch]="modalContent.modalType" class="modal-size">
+  <ng-container *ngSwitchCase="'uploadEmployersErrorModal'">
+    <div class="p-2 border border-secondary bg-white rounded-3 border-grey">
+      <div class="row">
+        <glasstop-toast [type]="toast.type" class="col-auto mx-auto" [message]="toast.message" (disposeEvent)="dispose()" [isAutoHide]=false>
+        </glasstop-toast>
+      </div>
+      <div class="pt-3 pb-2 fs-13 f-bold">
+        Failed Records
+      </div>
+      <div class="container border border-bottom-0 bg-white rounded-top">
+        <div class="error-table-heading rounded-top row fw-600 px-2 py-3 fs-14">
+          <div class="col-2 p-0 ps-1">
+            Company
+          </div>
+          <div class="col-3 p-0">
+            email Ids
+          </div>
+          <div class="col-5 p-0">
+            Url
+          </div>
+          <div class="col-1 overflow-wrap p-0">
+            Min rating
+          </div>
+          <div class="col-1 p-0">
+            Alert freq.
+          </div>
+        </div>
+      </div>
+      <div class="error-data px-2 fs-12 border border-bottom-0 fw-500">
+        <div class="row p-0 py-3" *ngFor="let error of toast.errorData; index as j"
+          [ngClass]="{'border-bottom':toast.errorData!.length-1 > j}">
+          <div class="col-2 p-0 ps-3" [ngClass]="{'error-field': error.validationMessage.includes('companyName')}"
+            [innerText]="error.employer.companyName ? error.employer.companyName : '-'" [class.ps-2]="!error.employer.companyName">
+          </div>
+          <div class="col-3 p-0" [ngClass]="{'error-field': error.validationMessage.includes('emailIds')}"
+            [innerText]="error.employer.emailIds ? error.employer.emailIds : '-'" [class.ps-4]="!error.employer.emailIds">
+          </div>
+          <div class="col-5 p-0 overflow-hidden" [ngClass]="{'error-field': error.validationMessage.includes('companyReviewURLOnGlassdoor')}"
+            [innerText]="error.employer.companyReviewURLOnGlassdoor ? error.employer.companyReviewURLOnGlassdoor : '-'" [class.ps-5]="!error.employer.companyReviewURLOnGlassdoor">
+          </div>
+          <div class="col-1 p-0 ps-2" [ngClass]="{'error-field': error.validationMessage.includes('ratingThreshold')}"
+            [innerText]="error.employer.ratingThreshold ? error.employer.ratingThreshold : '-'" [class.ps-2]="!error.employer.ratingThreshold">
+          </div>
+          <div class="col-1 p-0 ps-2" [ngClass]="{'error-field': error.validationMessage.includes('frequencyOfEmailInDays')}"
+            [innerText]="error.employer.frequencyOfEmailInDays ? error.employer.frequencyOfEmailInDays : '-'" [class.ps-2]="!error.employer.frequencyOfEmailInDays">
+          </div>
+        </div>
+      </div>
+      <div class="bottom border border-top-0 rounded-bottom"></div>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="'uploadConfirmationModal'">
+    <div class="p-4">
+      <div class="fs-18 fw-600">
+        Are you sure you want to upload the file with below data?
+      </div>
+      <div class="filename-container fs-14">
+        File name: <span class="ps-1 fw-600">{{modalContent.fileName}}</span>
+      </div>
+      <glasstop-data-table 
+          [data]="modalContent.employeeList" 
+          [columns]="modalContent.tableColumns" 
+          [detail]="{
+              searchTotalCount: modalContent.employeeList.length,
+              id: 'campaignUserId',
+              listName: 'employee(s)'
+          }" 
+          [isStaticData]="true" 
+          [paginationId]="'paginationId-2'"
+      >
+      </glasstop-data-table>
+      <div class="text-end mt-3 fs-14">
+        <button class="me-3 btn button-cancel br-10" (click)="close()">
+          Cancel
+        </button>
+        <button class="btn btn-primary button-submit br-10" (click)="confirm()">
+          Confirm
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

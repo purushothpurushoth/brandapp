@@ -1,0 +1,87 @@
+<glasstop-toaster></glasstop-toaster>
+<div class="row my-5">
+  <div class="col-12 slogan mx-auto text-center">
+    Empower your <span class="color-green">Brand</span> Reputation
+  </div>
+  <div class="col-12 text-center slogan-desc mt-3 mx-auto">
+    Defend Your Brand's Reputation with Real-Time Alerts!<br />
+    Discover the Most Efficient Solution to Safeguard Your Identity and Stay
+    Informed When Ratings Take a Dive.
+  </div>
+</div>
+<div class="m-4 mx-auto col-10 row panel-container">
+  <div class="col-4 p-3 left-container border-r">
+    <div class="row mb-3">
+      <label
+        for="empFiles"
+        class="my-2 col d-flex align-items-center f-bold fs-14 cursor-pointer"
+      >
+        <div class="upload-img br-10 me-2" (click)="focusUploadSection()">
+          <i class="bi bi-file-earmark-arrow-up-fill fs-17"></i>
+        </div>
+        <div>Upload your file</div>
+      </label>
+      <div class="download-btn col-auto align-self-end position-relative my-2">
+        <a href="assets/excel/Sample_Employer_Upload_Excel.xlsx" download>
+          <i class="bi bi-download position-absolute fs-14"></i>
+          <label class="btn border-blue fs-12">
+            Download sample excel
+          </label>
+        </a>
+      </div>
+    </div>
+    <div class="mb-3 fs-12 f-grey">
+      Upload a csv/xlsx file to import employers. Drag and drop the file
+      anywhere on the box to start uploading.
+    </div>
+    <div
+      class="drag-drop-container"
+      (dragover)="onDragOver($event)"
+      (drop)="onDropSuccess($event)"
+    >
+      <div class="text-center">
+        <img src="./../../../assets/employee-upload-logo.gif" height="200px" />
+      </div>
+      <label
+        for="empFiles"
+        class="drag-drop-section-label cursor-pointer py-3 px-2 text-center"
+        [ngClass]="{ uploadSectionFocus: isUploadSectionFocused }"
+      >
+        <i class="mb-3 bi bi-upload py-1 px-2"></i>
+        <div class="upload-link mt-2 f-grey fw-500 fs-14">
+          <span>Click to upload</span> or drag and drop
+          <p class="fs-12 pt-2">
+            File supported: Csv or Excel<br />
+            (maximum size 25MB)
+          </p>
+        </div>
+      </label>
+    </div>
+  </div>
+  <div class="col-8 p-4">
+    <glasstop-data-table
+      [data]="employerList"
+      [columns]="tableColumns"
+      [detail]="{
+        searchTotalCount: tableData.searchTotalCount,
+        id: 'campaignUserId',
+        placeholder: 'Search by company name or email ids',
+        listName: 'employer(s)'
+      }"
+      [isTableLoading]="tableData.isTableLoading"
+      [paginationId]="'paginationId-1'"
+      [skeletonLoaderList]="tableData.skeletonLoaderList"
+      (emitPageLoad)="loadEmployerListOnPagination($event)"
+      (emitSearchText)="loadEmployersOnSearch($event)"
+      (addDataEntry)="saveEmployer($event)"
+      [pageSize]="tableData.pageSize"
+    >
+    </glasstop-data-table>
+  </div>
+  <input
+    type="file"
+    id="empFiles"
+    class="d-none"
+    (change)="uploadFile($event)"
+  />
+</div>

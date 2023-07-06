@@ -1,0 +1,153 @@
+@import "./../../../scss/colors.scss";
+
+.search-box {
+    width: 300px;
+
+    label.btn-outline-secondary {
+      padding: 6px 12px 6px 34px;
+    }
+
+    .bi-search {
+      top: 6px;
+      left: 8px;
+    }
+
+    input {
+        padding-left: 35px;
+    }
+
+    .form-control {
+        border-color: $border-grey;
+      
+        &:focus {
+          box-shadow: none;
+        }
+    }
+}
+
+.clear-btn, .remove-btn {
+
+    label.btn-outline-secondary {
+      padding: 6px 12px 6px 34px;
+    }
+
+    .bi-x-lg, .bi-trash {
+      top: 5px;
+      left: 9px;
+    }
+
+    .bi-x-lg:hover {
+        color: $font-black !important;
+    }
+}
+
+.clear-btn:hover .bi-x-lg {
+    color: $white;
+}
+
+.remove-btn {
+
+    label.btn-outline-secondary {
+        background-color: $dark-red;
+        color: $white;
+        border: 1px solid $dark-red;
+
+        &:hover {
+            background-color: $dark-red2;
+        }
+    }
+
+    .bi-trash {
+        color: $white;
+    }
+}
+
+.table-container {
+    border: 1px solid $bg-grey;
+    
+    thead tr {
+        background-color: $bg-grey;
+    }
+
+    tbody tr td,
+    thead tr th {
+        border-bottom: 2px solid $bg-grey;
+        padding: 10px 0 10px 10px;
+        word-break: break-word;
+    }
+
+    .form-check-input {
+        border-color: $mild-grey !important;
+    }
+
+    .checkbox-cell {
+        width: 5%;
+    }
+
+    .select-all-link {
+        color: $icon-blue;
+    }
+
+    .selected-row {
+        background-color: $blue-grey;
+    }
+}
+
+.static-data-table {
+    tbody tr td,
+    thead tr th {
+        padding: 7px 0 7px 10px !important;
+    }
+}
+
+::ng-deep .ngx-pagination li {
+    border: 1px solid $light-grey !important;
+    border-radius: 5px !important;
+    margin: 0 2px;
+}
+
+.skeleton-loader {
+    width: 80%;
+    height: 14px;
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: $skeleton-grey1;
+    }
+    100% {
+        background-color: $skeleton-grey2;
+    }
+}
+
+// Modify flex section into block section when the resolution is below 900px for tablet view
+@media screen and (max-width: 900px) {
+    .actions-container {
+      display: block !important;
+  
+      .total-info {
+          text-align: right;
+      }
+    }
+}
+
+// Reduce searchbox width when the resolution is below 800px for tablet portrait view
+@media screen and (max-width: 800px) {
+    .actions-container .search-box {
+        width: 200px;
+    }
+}
+
+input:focus-visible {
+    background-color: $light-blue-3;
+}
+
+.add-column-entry {
+    height: 30px;
+    width: 30px;
+}
+
+.color-grey {
+    color: $font-grey;
+}
